@@ -1,0 +1,25 @@
+{
+  "enabled": false,
+  "interval_sec": 10,
+  "cooldown_sec": 60,
+  "settle_sec": 3,
+  "offline_threshold": 2,
+  "vpn_failure_threshold": 2,
+  "campus_probe": {
+    "url": "http://www.msftconnecttest.com/connecttest.txt",
+    "expected_status": 200,
+    "expected_body": "Microsoft Connect Test",
+    "timeout_sec": 8
+  },
+  "vpn_probe": {
+    "url": "https://www.gstatic.com/generate_204",
+    "proxy": "http://127.0.0.1:7890",
+    "expected_status": 204,
+    "timeout_sec": 8
+  },
+  "commands": {
+    "before_auth": {"argv": [], "wait": true, "timeout_sec": 30},
+    "connect": {"argv": [], "wait": true, "timeout_sec": 30}
+  },
+  "clash": {"enabled": false}
+}

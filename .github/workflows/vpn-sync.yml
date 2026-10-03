@@ -1,0 +1,21 @@
+name: vpn-sync-companion
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+        python: ['3.9', '3.13']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m unittest discover -s tests -p "test_vpn_sync.py" -v
+      - run: python scripts/vpn_sync.py --config examples/vpn-sync.clash.example.json --check-config
+      - run: python scripts/vpn_sync.py --config examples/vpn-sync.generic.example.json --check-config

@@ -5,3 +5,7 @@
 build/
 dist/
 test-backup/
+__pycache__/
+*.pyc
+vpn-sync.local.json
+logs/
