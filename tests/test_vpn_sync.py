@@ -9,7 +9,7 @@ import tempfile
 import threading
 import unittest
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -214,6 +214,22 @@ class HttpTests(unittest.TestCase):
         with patch.dict(os.environ, {"no_proxy": "*", "NO_PROXY": "*"}):
             self.assertTrue(vpn.http_probe(probe))
         self.assertEqual(self.server.seen[0][1], "http://localhost:1/through-proxy")
+
+    def test_https_proxy_preserves_origin_host_inside_tunnel(self):
+        seen = []
+        response = MagicMock()
+        response.code = 204
+        response.__enter__.return_value.status = 204
+
+        def capture(handler, request):
+            seen.append((request.host, request._tunnel_host, request.get_header("Host")))
+            return response
+
+        with patch.object(vpn.urllib.request.HTTPSHandler,
+                          "https_open", autospec=True, side_effect=capture):
+            self.assertTrue(vpn.http_probe({"url": "https://example.com:8443/check",
+                                           "proxy": self.origin, "expected_status": 204}))
+        self.assertEqual(seen, [(self.origin.split("//")[1], "example.com:8443", "example.com:8443")])
 
     def test_clash_request_encodes_group_and_uses_env_secret(self):
         cfg = config()

@@ -113,10 +113,15 @@ def make_opener():
 
 
 def http_probe(probe):
-    request = urllib.request.Request(probe["url"], headers={"User-Agent": "AutoSZUWeb-VPNSync/1"})
+    origin = urllib.parse.urlsplit(probe["url"])
+    request = urllib.request.Request(probe["url"], headers={
+        "User-Agent": "AutoSZUWeb-VPNSync/1", "Host": origin.netloc,
+    })
     proxy = probe.get("proxy", "")
     if proxy:
         parsed = urllib.parse.urlsplit(proxy)
+        # set_proxy changes Request.host before urllib adds default headers.
+        # HTTPS still needs the origin Host inside its CONNECT tunnel.
         request.set_proxy(parsed.netloc, "http")
     try:
         with make_opener().open(request, timeout=probe.get("timeout_sec", 8)) as response:
