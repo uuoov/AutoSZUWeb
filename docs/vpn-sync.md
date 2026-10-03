@@ -1,5 +1,7 @@
 # 校园网与 VPN / 代理联动
 
+不熟悉代理、端口或命令行的 Windows 用户，请先看 **[Windows 新手指南](beginner-windows.md)**。新手包可双击运行并自动识别可用本机代理；下面是需要自动连接命令、API 选节点或隧道适配时使用的高级说明。
+
 本 fork 保留 [ATMLuck/AutoSZUWeb](https://github.com/ATMLuck/AutoSZUWeb) 的校园网认证功能，增加 `scripts/vpn_sync.py` 作为独立、可选的联动脚本。原作者的 MIT 许可证和版权声明保留不变。
 
 它能在校园网恢复后尝试连接 VPN，并持续检查 VPN 是否可用。你仍需安装 VPN 客户端、配置自己的账号或订阅，先手动连接成功一次。

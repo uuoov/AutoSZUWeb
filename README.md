@@ -9,7 +9,9 @@
 
 ## 简介
 
-这个 fork 增加了可选的 **VPN / 代理联动脚本**，支持 HTTP 代理探测、Clash/Mihomo 本地 API 选节点，以及其他客户端的连接/断开命令。校园网认证仍使用原版 C++ 程序。配置示例、启动方法和兼容范围见 **[VPN 联动使用指南](docs/vpn-sync.md)**。脚本需要 Python 3.9+，无需额外 Python 包；原版 EXE 本身没有新增 VPN 功能。
+**Windows 新手：下载 [新手包（预览版）](https://github.com/uuoov/AutoSZUWeb/releases/tag/vpn-assistant-preview-1)，完整解压后双击 `AutoSZUWeb-Connect.exe`。** 按窗口提示设置校园网、在已有 VPN 软件里连接、点击自动检测和开始监测。无需安装 Python、编辑配置或填写端口。详细步骤见 **[Windows 新手指南](docs/beginner-windows.md)**。新手入口只检测和监测代理连接；自动重连仍需接入客户端。
+
+这个 fork 还提供可选的 **VPN / 代理联动脚本**，支持 HTTP 代理探测、Clash/Mihomo 本地 API 选节点，以及其他客户端的连接/断开命令。校园网认证仍使用原版 C++ 程序。高级配置与兼容范围见 **[VPN 联动使用指南](docs/vpn-sync.md)**。直接运行脚本需要 Python 3.9+，无需额外 Python 包；原版 EXE 本身没有新增 VPN 功能。
 
 AutoSZUWeb 是深圳大学校园网后台自动认证工具。配置账号后，程序会常驻后台，每 10 秒检查一次外网连通性；断网后自动尝试教学/办公区 SRun 认证，并在失败时回退到宿舍区 ePortal 认证。
 

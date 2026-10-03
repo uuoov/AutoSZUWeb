@@ -16,6 +16,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - run: python -m unittest discover -s tests -p "test_vpn_sync.py" -v
+      - run: python -m unittest discover -s tests -p "test_vpn*.py" -v
       - run: python scripts/vpn_sync.py --config examples/vpn-sync.clash.example.json --check-config
       - run: python scripts/vpn_sync.py --config examples/vpn-sync.generic.example.json --check-config

@@ -35,6 +35,24 @@ jobs:
         with:
           name: AutoSZUWeb-Windows
           path: build-ci/AutoSZUWeb.exe
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Test connection assistant
+        run: python -m unittest discover -s tests -p "test_vpn*.py" -v
+      - name: Package Windows beginner assistant
+        shell: pwsh
+        run: |
+          python -m pip install PyInstaller==6.19.0
+          python -m PyInstaller --noconfirm --onefile --windowed --noupx --name AutoSZUWeb-Connect --specpath build/vpn-assistant --workpath build/vpn-assistant/work --distpath dist/beginner scripts/vpn_setup.py
+          Copy-Item -LiteralPath build-ci/AutoSZUWeb.exe -Destination dist/beginner/AutoSZUWeb.exe
+          Copy-Item -LiteralPath LICENSE -Destination dist/beginner/LICENSE
+          Copy-Item -LiteralPath packaging/windows-beginner-readme.txt -Destination dist/beginner/Read-Me.txt
+      - name: Upload Windows beginner package
+        uses: actions/upload-artifact@v4
+        with:
+          name: AutoSZUWeb-Windows-Beginner
+          path: dist/beginner/
 
   macos:
     runs-on: macos-14
