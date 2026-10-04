@@ -4,6 +4,8 @@
 
 本 fork 保留 [ATMLuck/AutoSZUWeb](https://github.com/ATMLuck/AutoSZUWeb) 的校园网认证功能，增加 `scripts/vpn_sync.py` 作为独立、可选的联动脚本。原作者的 MIT 许可证和版权声明保留不变。
 
+自动重连的触发条件、执行顺序、失败重试和客户端接入方式，见 **[自动重连逻辑说明](auto-reconnect.md)**。其中明确区分了高级脚本已有能力与新手版尚未接入的自动重连功能。
+
 它能在校园网恢复后尝试连接 VPN，并持续检查 VPN 是否可用。你仍需安装 VPN 客户端、配置自己的账号或订阅，先手动连接成功一次。
 
 ## 支持哪些客户端
